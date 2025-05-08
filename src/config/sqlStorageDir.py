@@ -1,3 +1,13 @@
+"""
+## author
+
+> XianZS
+
+## means
+
+&emsp;&emsp;
+"""
+
 import os
 import sys
 from pathlib import Path
@@ -87,6 +97,8 @@ class SqlSD(ISqlSD):
             return False
 
 
+sqlSD = SqlSD()
+
 if __name__ == "__main__":
-    sqlSD = SqlSD()
-    sqlSD.enter()
+    sqlSDFile = SqlSD()
+    sqlSDFile.enter()
