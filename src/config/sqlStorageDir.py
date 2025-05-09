@@ -1,9 +1,15 @@
 """
-## author
+## Author
 
 > XianZS
 
-## means
+## Interface
+
+* ISqlSDPath:interface
+
+## Class
+
+* SqlSD:class
 
 &emsp;&emsp;
 """
@@ -14,19 +20,17 @@ from pathlib import Path
 from abc import ABC, abstractmethod
 
 
-class ISqlSD(ABC):
+class ISqlSDPath(ABC):
 
     @abstractmethod
     def setNewWorkDir(self, newWorkDir: str):
-        """判断当前目录是否存在"""
-
-    @abstractmethod
-    def setNewFolder(self, newFolder: str):
         """
-        ## 1. Function:
-            * 设置当前sql文件存储的路径
-            * 支持绝对路径设置
+        ## 1.Function:
+            传入的newWorkDir参数必须实际存在，默认为当前工作目录
+            * 设置当前的工作目录
+            * 判断相对路径或绝对路径
             * 支持相对路径设置
+            * 支持绝对路径设置
         ## 2. Example using:
         ### (1).绝对路径设置
             > C:/user/admin
@@ -35,11 +39,32 @@ class ISqlSD(ABC):
         """
 
     @abstractmethod
+    def setNewFolder(self, newFolder: str):
+        """
+        ## 1. Function:
+        &emsp;&emsp;传入参数newFolder可以不存在，默认参数为databases，设置当前数据库名称。
+        * 用户存在时，使用
+        * 用户不存在时，创建
+        ## 2.Example using:
+        &emsp;&emsp;假设setNewFolder="XianZS",
+        那么就会在sql工作目录下创建一个名为XianZS
+        的文件夹,XianZS就是新建用户。
+        """
+
+    @abstractmethod
     def enter(self):
-        """創建緩存目錄"""
+        """创建缓存目录"""
 
 
-class SqlSD(ISqlSD):
+class SqlSD(ISqlSDPath):
+    """
+    ## Author
+        > XianZS
+    ## Open method
+        * sqlSD.setNewWorkDir(newWorkDir:str),setting working dir that default is now working dir.
+        * sqlSD.setNewFolder(newFolder:str),setting newFolder that default is `databases`.
+        * sqlSD.enter(),initiate the class.
+    """
 
     def __init__(self):
         """init things"""
@@ -48,7 +73,7 @@ class SqlSD(ISqlSD):
         self.__createJudgeMent = False
 
     def setNewWorkDir(self, newWorkDir: str):
-        """判断相对还是绝对路径"""
+        self.__workDir = newWorkDir
         pObj = Path(newWorkDir)
         j = pObj.is_absolute()
         if j:
@@ -57,11 +82,10 @@ class SqlSD(ISqlSD):
             print("绝对路径为:", self.__workDir)
         else:
             """相对路径"""
-            self.__workDir += newWorkDir
+            self.__workDir = newWorkDir
             print("相对路径为:", self.__workDir)
 
     def setNewFolder(self, newFolder: str) -> bool:
-        """设置NewFolder存储文件夹"""
         try:
             self.__folder = newFolder
             return True
@@ -70,9 +94,9 @@ class SqlSD(ISqlSD):
             return False
 
     def __createDir(self) -> bool:
+        """This is a private method."""
         try:
             os.chdir(self.__workDir)
-            # print(self.getWorkDir())
             print(self.__workDir + "/" + self.__folder)
             if os.path.exists(self.__workDir + "/" + self.__folder):
                 """pass"""
@@ -82,7 +106,6 @@ class SqlSD(ISqlSD):
                 os.makedirs(self.__folder)
             self.__createJudgeMent = True
         except Exception as e:
-            print("----------")
             print(e)
             self.__createJudgeMent = False
         return self.__createJudgeMent
@@ -96,8 +119,6 @@ class SqlSD(ISqlSD):
             print(e)
             return False
 
-
-sqlSD = SqlSD()
 
 if __name__ == "__main__":
     sqlSDFile = SqlSD()

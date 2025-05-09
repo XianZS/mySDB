@@ -1,5 +1,5 @@
-# from . import enable as _enable
-from . import sqlStorageDir as _sqlStorageDir
+# Format:from .file import class as _class
+from .sqlStorageDir import SqlSD as _SqlSD
 
-# enable = _enable
-sqlSD = _sqlStorageDir.sqlSD
+# Instantiate class objects that enable = _Enable()
+sqlSD = _SqlSD()

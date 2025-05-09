@@ -12,8 +12,11 @@ def main():
     for childPath in sys.path:
         print(f"[{index}]:{childPath}")
         index += 1
-    sqlSD.setNewWorkDir("C:/Users/Administrator/Desktop")
-    sqlSD.setNewFolder("XianZS1")
+    # 绝对路径测试
+    # sqlSD.setNewWorkDir("C:/Users/Administrator/Desktop")
+    # 相对路径测试
+    sqlSD.setNewWorkDir("src")
+    sqlSD.setNewFolder("XianZS")
     sqlSD.enter()
 
 
