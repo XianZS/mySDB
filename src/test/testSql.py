@@ -15,8 +15,8 @@ def main():
     # 绝对路径测试
     # sqlSD.setNewWorkDir("C:/Users/Administrator/Desktop")
     # 相对路径测试
-    sqlSD.setNewWorkDir("src")
-    sqlSD.setNewFolder("XianZS")
+    # sqlSD.setNewWorkDir("src")
+    # sqlSD.setNewFolder("XianZS")
     sqlSD.enter()
 
 

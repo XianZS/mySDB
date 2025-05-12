@@ -52,6 +52,10 @@ class ISqlSDPath(ABC):
         """
 
     @abstractmethod
+    def getRoad(self):
+        """Get Road"""
+
+    @abstractmethod
     def enter(self):
         """创建缓存目录"""
 
@@ -93,6 +97,9 @@ class SqlSD(ISqlSDPath):
             print(e)
             return False
 
+    def getRoad(self):
+        return self.__Road()
+
     def __createDir(self) -> bool:
         """This is a private method."""
         try:
@@ -109,6 +116,9 @@ class SqlSD(ISqlSDPath):
             print(e)
             self.__createJudgeMent = False
         return self.__createJudgeMent
+
+    def __Road(self):
+        return self.__workDir + "/" + self.__folder
 
     def enter(self) -> bool:
         try:
