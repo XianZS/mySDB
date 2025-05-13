@@ -70,11 +70,18 @@ class SqlSD(ISqlSDPath):
         * sqlSD.enter(),initiate the class.
     """
 
+    _instance = None
+
     def __init__(self):
         """init things"""
         self.__workDir = os.getcwd()
         self.__folder = "databases"
         self.__createJudgeMent = False
+
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(SqlSD, cls).__new__(cls, *args, **kwargs)
+        return cls._instance
 
     def setNewWorkDir(self, newWorkDir: str):
         self.__workDir = newWorkDir
@@ -118,6 +125,9 @@ class SqlSD(ISqlSDPath):
         return self.__createJudgeMent
 
     def __Road(self):
+        print("========")
+        print(self.__workDir, self.__folder)
+        print("========")
         return self.__workDir + "/" + self.__folder
 
     def enter(self) -> bool:

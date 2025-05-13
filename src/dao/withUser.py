@@ -6,6 +6,12 @@ from abc import ABC, abstractmethod
 from src.config import sqlSD
 
 
+class IEnter(ABC):
+    @abstractmethod
+    def enter(self):
+        """enter"""
+
+
 class IJudgement(ABC):
     @abstractmethod
     def jUser(self, userName: str) -> bool:
@@ -32,7 +38,7 @@ class IWithUser(ABC):
         """enter class"""
 
 
-class WithUser(IJudgement, IWithUser):
+class WithUser(IJudgement, IWithUser, IEnter):
     """
     ## Function:
     先判断用户是否已经存在,如果存在就继续创建，否则报错
