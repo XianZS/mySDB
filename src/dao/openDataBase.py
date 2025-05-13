@@ -10,4 +10,5 @@ class IOpenDB(ABC):
 
 class OpendDB(IOpenDB):
     def openDB(self, dbName):
-        sqlite3.connect(dbName)
+        self.dbObj = sqlite3.connect(dbName)
+        self.dbObj.close()
