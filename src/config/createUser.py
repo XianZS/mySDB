@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(os.getcwd())
 from abc import ABC, abstractmethod
-from src.config import sqlSD
+from .sqlStorageDir import sqlsdObj
 
 
 class IEnter(ABC):
@@ -20,7 +20,7 @@ class ICUser(ABC):
 
 class CreateUser(IEnter, ICUser):
     def __init__(self):
-        self.__road = sqlSD.getRoad()
+        self.__road = sqlsdObj.getRoad()
         self.__userName = "default"
 
     def __judge(self) -> bool:
@@ -36,7 +36,7 @@ class CreateUser(IEnter, ICUser):
         """
         print("i" * 30)
         print(self.__road)
-        dirs: list = os.listdir(sqlSD.getRoad())
+        dirs: list = os.listdir(sqlsdObj.getRoad())
         if self.__userName in dirs:
             print(f"{self.__userName}已存在，不可以二次创建")
             return False
@@ -48,7 +48,7 @@ class CreateUser(IEnter, ICUser):
             # 以防万一,哈哈，\(*^*)/
             try:
                 # 选中当前数据库路径
-                os.chdir(sqlSD.getRoad())
+                os.chdir(sqlsdObj.getRoad())
                 # 创建当前用户文件夹
                 os.makedirs(self.__userName)
                 return True
@@ -62,3 +62,6 @@ class CreateUser(IEnter, ICUser):
     def enter(self, userName: str):
         self.__userName = userName
         self.createUser()
+
+
+cuObj = CreateUser()

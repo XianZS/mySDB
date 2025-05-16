@@ -140,6 +140,9 @@ class SqlSD(ISqlSDPath):
             return False
 
 
+sqlsdObj = SqlSD()
+
+
 if __name__ == "__main__":
     sqlSDFile = SqlSD()
     sqlSDFile.enter()

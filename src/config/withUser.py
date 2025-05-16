@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(os.getcwd())
 from abc import ABC, abstractmethod
-from src.config import sqlSD
+from .sqlStorageDir import sqlsdObj
 
 
 class IEnter(ABC):
@@ -48,8 +48,8 @@ class WithUser(IJudgement, IWithUser, IEnter):
         self.__user = "default"
 
     def jUser(self, userName: str):
-        print(sqlSD.getRoad())
-        dirs: list = os.listdir(sqlSD.getRoad())
+        print(sqlsdObj.getRoad())
+        dirs: list = os.listdir(sqlsdObj.getRoad())
         if userName in dirs:
             return True
         return False
@@ -65,6 +65,8 @@ class WithUser(IJudgement, IWithUser, IEnter):
             print("ERROR: User does not exist, please create a user first.")
             return (False, userName)
 
+
+wuObj = WithUser()
 
 if __name__ == "__main__":
     withUser = WithUser()
