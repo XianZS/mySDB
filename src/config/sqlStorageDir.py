@@ -142,7 +142,6 @@ class SqlSD(ISqlSDPath):
 
 sqlsdObj = SqlSD()
 
-
 if __name__ == "__main__":
     sqlSDFile = SqlSD()
     sqlSDFile.enter()

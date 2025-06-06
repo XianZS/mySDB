@@ -34,7 +34,7 @@ class IWithUser(ABC):
         """That function is revise permission."""
 
     @abstractmethod
-    def enter(self) -> bool:
+    def enter(self, userName: str) -> tuple:
         """enter class"""
 
 
@@ -60,10 +60,10 @@ class WithUser(IJudgement, IWithUser, IEnter):
     def enter(self, userName: str) -> tuple:
         if self.jUser(userName=userName):
             self.__user = userName
-            return (True, userName)
+            return True, userName
         else:
             print("ERROR: User does not exist, please create a user first.")
-            return (False, userName)
+            return False, userName
 
 
 wuObj = WithUser()

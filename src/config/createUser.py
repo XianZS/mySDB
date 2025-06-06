@@ -8,7 +8,7 @@ from .sqlStorageDir import sqlsdObj
 
 class IEnter(ABC):
     @abstractmethod
-    def enter(self):
+    def enter(self, userName: str):
         """enter"""
 
 
